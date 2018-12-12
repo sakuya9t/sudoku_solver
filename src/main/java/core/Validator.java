@@ -38,7 +38,7 @@ public class Validator{
         };
     }
 
-    static int getSquareId(int row, int col){
+    public static int getSquareId(int row, int col){
         return col / 3 + row / 3 * 3;
     }
 }
