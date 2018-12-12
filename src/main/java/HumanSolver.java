@@ -9,7 +9,7 @@ public class HumanSolver {
         for(int i = 0; i < 9; i++){
             this.cells[i] = new Cell[9];
             for(int j = 0; j < 9; j++){
-                this.cells[i][j] = new Cell();
+                this.cells[i][j] = new Cell(i, j);
                 this.cells[i][j].setValue(grid.get(i, j));
                 if(this.cells[i][j].getValue() == 0)
                     this.cells[i][j].setPossibilities(grid.getOptions(i, j));
@@ -60,8 +60,18 @@ public class HumanSolver {
         }
         counter.forEach((number, exists) -> {
             if(exists.size() == 1) {
-                section[exists.get(0)].setValue(number);
-                section[exists.get(0)].setPossibilities(new ArrayList<>());
+                Cell c = section[exists.get(0)];
+                c.setValue(number);
+                c.setPossibilities(new ArrayList<>());
+
+                List<Integer> possibilityToBeReduced = new ArrayList<>();
+                possibilityToBeReduced.add(number);
+                Cell[] row = this.getRow(c.getRow());
+                Cell[] col = this.getCol(c.getCol());
+                Cell[] square = this.getSquare(c.getSquare());
+                for(Cell neibour: row) neibour.removePossibilities(possibilityToBeReduced);
+                for(Cell neibour: col) neibour.removePossibilities(possibilityToBeReduced);
+                for(Cell neibour: square) neibour.removePossibilities(possibilityToBeReduced);
             }
         });
     }

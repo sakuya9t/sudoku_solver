@@ -2,8 +2,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cell {
+    private int i;
+    private int j;
     private int value;
     private List<Integer> possibilities = new ArrayList<Integer>();
+
+    public Cell(int i, int j){
+        this.i = i;
+        this.j = j;
+    }
 
     public int getValue() {
         return value;
@@ -27,5 +34,17 @@ public class Cell {
             if(!numbers.contains(i)) newPossibilities.add(i);
         }
         this.setPossibilities(newPossibilities);
+    }
+
+    public int getRow(){
+        return i;
+    }
+
+    public int getCol(){
+        return j;
+    }
+
+    public int getSquare(){
+        return Validator.getSquareId(i, j);
     }
 }
