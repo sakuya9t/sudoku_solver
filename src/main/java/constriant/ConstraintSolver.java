@@ -1,3 +1,4 @@
+import core.CellGrid;
 import org.jacop.constraints.Alldifferent;
 import org.jacop.constraints.Constraint;
 import org.jacop.core.IntVar;

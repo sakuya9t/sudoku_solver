@@ -1,3 +1,5 @@
+import core.CellGrid;
+
 import java.util.List;
 import java.util.Queue;
 

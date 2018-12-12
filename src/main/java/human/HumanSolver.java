@@ -1,3 +1,9 @@
+package human;
+
+import core.Cell;
+import core.CellGrid;
+import core.Validator;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,57 +29,11 @@ public class HumanSolver {
             this.fillSingle();
             this.reducePossibilities();
             this.doNakedPairs();
-            this.doHiddenSingle();
+            HiddenSingleHandler hiddenSingleHandler = new HiddenSingleHandler(this);
+            hiddenSingleHandler.doHiddenSingle();
             iterations++;
         }
         return iterations;
-    }
-
-    private void doHiddenSingle() {
-        for(int i = 0; i < 9; i++) {
-            Cell[] row = getRow(i);
-            this.hiddenSingleReduce(row);
-
-            Cell[] col = getCol(i);
-            this.hiddenSingleReduce(col);
-
-            Cell[] square = getSquare(i);
-            this.hiddenSingleReduce(square);
-        }
-    }
-
-    private void hiddenSingleReduce(Cell[] section){
-        Map<Integer, List<Integer>> counter = new HashMap<>();
-        for(int j = 0; j < 9; j++){
-            if(section[j].getPossibilities().size() > 0) {
-                for(int possibility : section[j].getPossibilities()){
-                    if(counter.containsKey(possibility)){
-                        counter.get(possibility).add(j);
-                    }
-                    else{
-                        List<Integer> list = new ArrayList<>();
-                        list.add(j);
-                        counter.put(possibility, list);
-                    }
-                }
-            }
-        }
-        counter.forEach((number, exists) -> {
-            if(exists.size() == 1) {
-                Cell c = section[exists.get(0)];
-                c.setValue(number);
-                c.setPossibilities(new ArrayList<>());
-
-                List<Integer> possibilityToBeReduced = new ArrayList<>();
-                possibilityToBeReduced.add(number);
-                Cell[] row = this.getRow(c.getRow());
-                Cell[] col = this.getCol(c.getCol());
-                Cell[] square = this.getSquare(c.getSquare());
-                for(Cell neibour: row) neibour.removePossibilities(possibilityToBeReduced);
-                for(Cell neibour: col) neibour.removePossibilities(possibilityToBeReduced);
-                for(Cell neibour: square) neibour.removePossibilities(possibilityToBeReduced);
-            }
-        });
     }
 
     private void doNakedPairs() {
@@ -154,17 +114,17 @@ public class HumanSolver {
         return true;
     }
 
-    private Cell[] getRow(int i) {
+    protected Cell[] getRow(int i) {
         return this.cells[i];
     }
 
-    private Cell[] getCol(int j) {
+    protected Cell[] getCol(int j) {
         Cell[] result = new Cell[9];
         for(int i = 0; i < 9; i++) result[i] = this.cells[i][j];
         return result;
     }
 
-    private Cell[] getSquare(int id){
+    protected Cell[] getSquare(int id){
         int iStart = id / 3 * 3;
         int jStart = id % 3 * 3;
         return new Cell[]{
