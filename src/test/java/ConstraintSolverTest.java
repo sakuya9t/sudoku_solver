@@ -1,3 +1,6 @@
+import constriant.ConstraintSolver;
+import core.CellGrid;
+import io.SudokuReader;
 import org.jacop.constraints.Alldifferent;
 import org.jacop.constraints.Constraint;
 import org.jacop.core.IntVar;
@@ -76,5 +79,13 @@ public class ConstraintSolverTest {
                 "789643251\n" +
                 "564127389\n" +
                 "312598764\n", result.printGrid());
+    }
+
+    @Test
+    public void TestSolve8() {
+        CellGrid grid = new CellGrid(SudokuReader.readSudoku("8.txt"));
+        ConstraintSolver solver = new ConstraintSolver(grid);
+        CellGrid result = solver.solve();
+        System.out.println(result.printGrid());
     }
 }

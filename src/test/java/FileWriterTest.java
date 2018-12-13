@@ -1,3 +1,5 @@
+import core.CellGrid;
+import io.FileWriter;
 import org.junit.Test;
 
 public class FileWriterTest {

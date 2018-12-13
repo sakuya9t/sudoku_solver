@@ -1,3 +1,7 @@
+import constriant.ConstraintSolver;
+import core.CellGrid;
+import io.SudokuReader;
+import human.HumanSolver;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -71,5 +75,17 @@ public class HumanSolverTest {
                 "893514627\n" +
                 "621973584\n" +
                 "547682319\n", result.printGrid());
+    }
+
+    @Test
+    public void TestSolveHiddenPairs(){
+        CellGrid grid = new CellGrid(SudokuReader.readSudoku("hiddenpair.txt"));
+        HumanSolver solver = new HumanSolver(grid);
+        int iterations = solver.solve();
+        CellGrid result = solver.getResult();
+        System.out.println("Puzzle solved in " + iterations + " cycles.");
+
+        ConstraintSolver cSolver = new ConstraintSolver(grid);
+        Assert.assertEquals(cSolver.solve().printGrid(), result.printGrid());
     }
 }

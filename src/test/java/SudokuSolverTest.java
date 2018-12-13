@@ -1,3 +1,6 @@
+import core.CellGrid;
+import io.SudokuReader;
+import normal.Solver;
 import org.junit.Assert;
 import org.junit.Test;
 
