@@ -7,27 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class NakedPairsHandler {
-    private HumanSolver solver;
+class NakedPairsHandler extends  BaseHandler{
 
-    public NakedPairsHandler(HumanSolver solver){
-        this.solver = solver;
+    NakedPairsHandler(HumanSolver solver) {
+        super(solver);
     }
 
-    public void doNakedPairs() {
-        for(int i = 0; i < 9; i++){
-            Cell[] row = this.solver.getRow(i);
-            this.nakedPairsReduce(row);
-
-            Cell[] col = this.solver.getCol(i);
-            this.nakedPairsReduce(col);
-
-            Cell[] square = this.solver.getSquare(i);
-            this.nakedPairsReduce(square);
-        }
-    }
-
-    private void nakedPairsReduce(Cell[] sections){
+    @Override
+    protected void reduce(Cell[] sections){
         Map<List<Integer>, Integer> pairsMap = new HashMap<>();
         for(Cell cell : sections){
             if(cell.getPossibilities().size() > 0){

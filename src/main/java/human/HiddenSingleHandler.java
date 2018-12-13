@@ -7,26 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HiddenSingleHandler {
-    private HumanSolver solver;
+class HiddenSingleHandler extends BaseHandler{
 
-    public HiddenSingleHandler(HumanSolver solver){
-        this.solver = solver;
-    }
-    public void doHiddenSingle() {
-        for(int i = 0; i < 9; i++) {
-            Cell[] row = this.solver.getRow(i);
-            this.hiddenSingleReduce(row);
-
-            Cell[] col = this.solver.getCol(i);
-            this.hiddenSingleReduce(col);
-
-            Cell[] square = this.solver.getSquare(i);
-            this.hiddenSingleReduce(square);
-        }
+    HiddenSingleHandler(HumanSolver solver){
+        super(solver);
     }
 
-    private void hiddenSingleReduce(Cell[] section){
+    @Override
+    protected void reduce(Cell[] section){
         Map<Integer, List<Integer>> counter = new HashMap<>();
         for(int j = 0; j < 9; j++){
             if(section[j].getPossibilities().size() > 0) {

@@ -1,7 +1,9 @@
+package core;
+
 import java.io.*;
 
 public class SudokuReader {
-    static int[][] readSudoku(String filename){
+    public static int[][] readSudoku(String filename){
         String path = System.getProperty("user.dir") + "\\puzzle\\" + filename;
         File file = new File(path);
 
@@ -23,7 +25,7 @@ public class SudokuReader {
         }
     }
 
-    static int[] convertString(String line){
+    public static int[] convertString(String line){
         int[] result = new int[9];
         for(int iter = 0; iter < 9; iter++){
             if(iter >= line.length()){

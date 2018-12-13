@@ -2,10 +2,6 @@ package human;
 
 import core.Cell;
 import core.CellGrid;
-import core.Validator;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 public class HumanSolver {
     private Cell[][] cells;
@@ -27,12 +23,16 @@ public class HumanSolver {
         int iterations = 0;
         while(!this.isSolved()){
             FillSingleHandler fillSingleHandler = new FillSingleHandler(this);
-            fillSingleHandler.fillSingle();
-            fillSingleHandler.reducePossibilities();
+            fillSingleHandler.handle();
+
             NakedPairsHandler nakedPairsHandler = new NakedPairsHandler(this);
-            nakedPairsHandler.doNakedPairs();
+            nakedPairsHandler.handle();
+
             HiddenSingleHandler hiddenSingleHandler = new HiddenSingleHandler(this);
-            hiddenSingleHandler.doHiddenSingle();
+            hiddenSingleHandler.handle();
+
+            HiddenPairsHandler hiddenPairsHandler = new HiddenPairsHandler(this);
+            hiddenPairsHandler.handle();
             iterations++;
         }
         return iterations;

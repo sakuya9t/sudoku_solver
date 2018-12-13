@@ -6,14 +6,19 @@ import core.Validator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FillSingleHandler {
-    private HumanSolver solver;
+class FillSingleHandler extends BaseHandler {
 
-    public FillSingleHandler(HumanSolver solver){
-        this.solver = solver;
+    FillSingleHandler(HumanSolver solver){
+        super(solver);
     }
 
-    public void reducePossibilities() {
+    @Override
+    protected void handle(){
+        this.fillSingle();
+        this.reducePossibilities();
+    }
+
+    private void reducePossibilities() {
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){
                 if(this.solver.getCell(i, j).getPossibilities().size() > 0){
@@ -35,7 +40,7 @@ public class FillSingleHandler {
         }
     }
 
-    public void fillSingle(){
+    private void fillSingle(){
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){
                 if(this.solver.getCell(i, j).getPossibilities().size() == 1){
