@@ -6,7 +6,7 @@ import core.CellGrid;
 public class HumanSolver {
     private Cell[][] cells;
 
-    public HumanSolver(CellGrid grid){
+    HumanSolver(CellGrid grid){
         this.cells = new Cell[9][9];
         for(int i = 0; i < 9; i++){
             this.cells[i] = new Cell[9];
@@ -19,7 +19,7 @@ public class HumanSolver {
         }
     }
 
-    public int solve(){
+    int solve(){
         int iterations = 0;
         while(!this.isSolved()){
             FillSingleHandler fillSingleHandler = new FillSingleHandler(this);
@@ -33,6 +33,10 @@ public class HumanSolver {
 
             HiddenPairsHandler hiddenPairsHandler = new HiddenPairsHandler(this);
             hiddenPairsHandler.handle();
+
+            OmissionHandler omissionHandler = new OmissionHandler(this);
+            omissionHandler.handle();
+
             iterations++;
         }
         return iterations;
@@ -47,17 +51,17 @@ public class HumanSolver {
         return true;
     }
 
-    protected Cell[] getRow(int i) {
+    Cell[] getRow(int i) {
         return this.cells[i];
     }
 
-    protected Cell[] getCol(int j) {
+    Cell[] getCol(int j) {
         Cell[] result = new Cell[9];
         for(int i = 0; i < 9; i++) result[i] = this.cells[i][j];
         return result;
     }
 
-    protected Cell[] getSquare(int id){
+    Cell[] getSquare(int id){
         int iStart = id / 3 * 3;
         int jStart = id % 3 * 3;
         return new Cell[]{
@@ -67,7 +71,7 @@ public class HumanSolver {
         };
     }
     
-    public CellGrid getResult(){
+    CellGrid getResult(){
         CellGrid result = new CellGrid();
         for(int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -77,5 +81,5 @@ public class HumanSolver {
         return result;
     }
 
-    public Cell getCell(int i, int j) { return this.cells[i][j]; }
+    Cell getCell(int i, int j) { return this.cells[i][j]; }
 }

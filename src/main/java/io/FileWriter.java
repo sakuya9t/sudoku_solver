@@ -1,4 +1,6 @@
-package core;
+package io;
+
+import core.CellGrid;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

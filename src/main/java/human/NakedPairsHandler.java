@@ -14,7 +14,7 @@ class NakedPairsHandler extends  BaseHandler{
     }
 
     @Override
-    protected void reduce(Cell[] sections){
+    protected void reduce(Cell[] sections, int sectionType){
         Map<List<Integer>, Integer> pairsMap = new HashMap<>();
         for(Cell cell : sections){
             if(cell.getPossibilities().size() > 0){

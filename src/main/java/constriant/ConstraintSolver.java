@@ -1,3 +1,5 @@
+package constriant;
+
 import core.CellGrid;
 import org.jacop.constraints.Alldifferent;
 import org.jacop.constraints.Constraint;

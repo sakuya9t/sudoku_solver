@@ -1,7 +1,9 @@
+package core;
+
 import java.util.Arrays;
 
 public class Validator{
-    static boolean isValid(int[][] board){
+    public static boolean isValid(int[][] board){
         for(int iter = 0; iter < 9; iter++){
             if(!allDifferent(board[iter])) return false;
             if(!allDifferent(getIthColumn(board, iter))) return false;
@@ -10,7 +12,7 @@ public class Validator{
         return true;
     }
 
-    static boolean allDifferent(int[] array){
+    public static boolean allDifferent(int[] array){
         int[] cpy = Arrays.copyOf(array, array.length);
         Arrays.sort(cpy);
         for(int i = 0; i < cpy.length - 1; i++){
@@ -20,7 +22,7 @@ public class Validator{
         return true;
     }
 
-    static int[] getIthColumn(int[][] board, int i){
+    public static int[] getIthColumn(int[][] board, int i){
         int[] result = new int[board.length];
         for(int iter = 0; iter < board.length; iter++){
             result[iter] = board[iter][i];
@@ -28,7 +30,7 @@ public class Validator{
         return result;
     }
 
-    static int[] getIthSquare(int[][] board, int i){
+    public static int[] getIthSquare(int[][] board, int i){
         int iStart = i / 3 * 3;
         int jStart = i % 3 * 3;
         return new int[]{

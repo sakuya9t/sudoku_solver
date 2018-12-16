@@ -14,7 +14,7 @@ class HiddenSingleHandler extends BaseHandler{
     }
 
     @Override
-    protected void reduce(Cell[] section){
+    protected void reduce(Cell[] section, int sectionType){
         Map<Integer, List<Integer>> counter = new HashMap<>();
         for(int j = 0; j < 9; j++){
             if(section[j].getPossibilities().size() > 0) {

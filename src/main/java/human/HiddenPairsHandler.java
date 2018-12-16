@@ -3,7 +3,7 @@ package human;
 import core.Cell;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,22 +15,8 @@ class HiddenPairsHandler extends BaseHandler{
     }
 
     @Override
-    protected void reduce(Cell[] section){
-        Map<Integer, List<Integer>> map = new HashMap<>();
-        for(int id = 0; id < 9; id++){
-            Cell c = section[id];
-            List<Integer> possibilities = c.getPossibilities();
-            for(int poss : possibilities){
-                if(map.containsKey(poss)){
-                    map.get(poss).add(id);
-                }
-                else{
-                    List<Integer> list = new ArrayList<>();
-                    list.add(id);
-                    map.put(poss, list);
-                }
-            }
-        }
+    protected void reduce(Cell[] section, int sectionType){
+        Map<Integer, List<Integer>> map = this.reversedNumberMapInSection(section);
 
         Map<Integer, List<Integer>> numbersAppearTwice = map.entrySet()
                 .stream()
@@ -42,13 +28,14 @@ class HiddenPairsHandler extends BaseHandler{
         {
             for(Map.Entry<Integer, List<Integer>> e2: numbersAppearTwice.entrySet())
             {
-                if (e1.getKey() != e2.getKey() && e1.getValue().equals(e2.getValue()))
+                if (!e1.getKey().equals(e2.getKey()) && e1.getValue().equals(e2.getValue()))
                 {
                     Cell c1 = section[e1.getValue().get(0)];
                     Cell c2 = section[e2.getValue().get(1)];
                     List<Integer> newPossibilities = new ArrayList<>();
                     newPossibilities.add(e1.getKey());
                     newPossibilities.add(e2.getKey());
+                    Collections.sort(newPossibilities);
                     c1.setPossibilities(newPossibilities);
                     c2.setPossibilities(newPossibilities);
                 }

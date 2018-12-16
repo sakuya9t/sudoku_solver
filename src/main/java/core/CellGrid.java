@@ -1,3 +1,7 @@
+package core;
+
+import core.Validator;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,7 +49,7 @@ public class CellGrid {
     public void fill(int i, int j, int value){ this.grid[i][j] = value; }
 
 
-    String printGrid(){
+    public String printGrid(){
         StringBuilder result = new StringBuilder();
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){

@@ -1,3 +1,5 @@
+package human;
+
 import constriant.ConstraintSolver;
 import core.CellGrid;
 import io.SudokuReader;

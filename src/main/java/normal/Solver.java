@@ -1,3 +1,5 @@
+package normal;
+
 import core.CellGrid;
 
 import java.util.List;
@@ -12,7 +14,7 @@ public class Solver {
         this.empty = grid.getChangableCells();
     }
 
-    CellGrid solve(){
+    public CellGrid solve(){
         if(empty.size() == 0) return grid;
         int[] next = empty.peek();
         List<Integer> options = grid.getOptions(next[0], next[1]);
